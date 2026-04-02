@@ -6,13 +6,33 @@ let screenPrice = parseInt(prompt("Сколько будет стоить дан
 let rollback = 60;
 let adaptive = confirm("Нужен ли адаптив на сайте?");
 
-const service1 = prompt("Какой дополнительный тип услуги нужен?");
-const servicePrice1 = parseInt(prompt("Сколько это будет стоить?"));
-const service2 = prompt("Какой дополнительный тип услуги нужен?");
-const servicePrice2 = parseInt(prompt("Сколько это будет стоить?"));
+let service1 = prompt("Какой дополнительный тип услуги нужен?");
+let servicePrice1 = parseInt(prompt("Сколько это будет стоить?"));
+let service2 = prompt("Какой дополнительный тип услуги нужен?");
+let servicePrice2 = parseInt(prompt("Сколько это будет стоить?"));
 
-const fullPrice = screenPrice + servicePrice1 + servicePrice2;
-const servicePercentPrice = Math.round(
+const getAllServicePrices = function additionalServices() {
+  return servicePrice1 + servicePrice2;
+}
+
+function getFullPrice() {
+  return screenPrice + allServicesPrices;
+}
+
+const getTitle = function changeTitle() {
+  let firstLetter = title[0];
+  if (firstLetter) {
+    return firstLetter.toUpperCase + title.substring(1);
+  };
+}
+
+const func1 = function getServicePercentPrices() {
+  return fullPrice - fullPrice * (rollback / 100);
+}
+
+let allServicesPrices = additionalServices();
+let fullPrice = screenPrice + servicePrice1 + servicePrice2;
+let servicePercentPrice = Math.round(
   fullPrice - fullPrice * (rollback / 100),
 );
 console.log(`servicePercentPrice - ${servicePercentPrice}`);
