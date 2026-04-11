@@ -1,26 +1,49 @@
 "use strict";
 
-let title = prompt("Как называется ваш проект?");
-let screens = prompt("Какие типы экранов нужно разработать?");
+let title;
+let screens;
+let adaptive;
 let screenPrice;
-do {
-  screenPrice = +prompt("Сколько будет стоить данная работа?");
-} while (screenPrice === 0);
-
 let rollback = 60;
-let adaptive = confirm("Нужен ли адаптив на сайте?");
+let service1;
+let service2;
 
-let service1 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice1 = +prompt("Сколько это будет стоить?");
-let service2 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice2 = +prompt("Сколько это будет стоить?");
+
+const isNumber = function (num) {
+  return !isNaN(parseFloat(num)) && isFinite(num);
+}
+
+const asking = function () {
+  title = prompt("Как называется ваш проект?", 'Проектик');
+  screens = prompt("Какие типы экранов нужно разработать?", 'Простые');
+  adaptive = confirm("Нужен ли адаптив на сайте?");
+  do {
+    screenPrice = prompt("Сколько будет стоить данная работа?");
+  } while (!isNumber(screenPrice));
+  Number(screenPrice);
+}
 
 const getAllServicePrices = function () {
-  return servicePrice1 + servicePrice2;
-};
 
-function getFullPrice() {
-  return screenPrice + getAllServicePrices();
+  let sum = 0;
+  for (let i = 0; i < 2; i++) {
+    if (i === 0) {
+      service1 = prompt("Какой дополнительный тип услуги нужен?", 'Да');
+    } else if (i === 1) {
+      service2 = prompt("Какой дополнительный тип услуги нужен?", 'Да');
+    }
+
+    let price;
+    while (!isNumber(price)) {
+      price = prompt("Сколько это будет стоить?");
+    }
+    sum += Number(price);
+  }
+  return sum;
+}
+
+function getFullPrice(servPrices) {
+  return Number(screenPrice) + servPrices;
 }
 
 const getTitle = function () {
@@ -42,8 +65,9 @@ function showTypeOf(elem = null) {
   console.log(typeof elem);
 }
 
+asking();
 let allServicesPrices = getAllServicePrices();
-let fullPrice = getFullPrice();
+let fullPrice = getFullPrice(allServicesPrices);
 let servicePercentPrice = getServicePercentPrices();
 let changeTitle = getTitle();
 
